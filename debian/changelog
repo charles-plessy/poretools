@@ -1,0 +1,5 @@
+poretools (0.3.0-1~~draft) UNRELEASED; urgency=medium
+
+  * Draft source package for Debian and derivatives.
+
+ -- Charles Plessy <plessy@riken.jp>  Thu, 28 Aug 2014 18:58:27 +0900

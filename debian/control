@@ -1,0 +1,17 @@
+Source: poretools
+Section: science
+Priority: optional
+Maintainer: Charles Plessy <plessy@riken.jp>
+Build-Depends: debhelper (>= 9)
+             , python | python-all | python-dev | python-all-dev
+             , python-setuptools
+Standards-Version: 3.9.5
+Homepage: https://github.com/arq5x/poretools
+
+Package: poretools
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, ${python:Depends}
+Recommends: r-cran-ggplot2
+Description: toolkit for working with nanopore sequencing data from Oxford Nanopore
+ Note: this software is in an alpha state; the code is changing rapidly and the
+ API and CLI may change at any time.
