@@ -29,12 +29,12 @@ Install as a plain old who lacks ``sudo`` priveleges:
 
 	# details: https://docs.python.org/2/install/index.html#alternate-installation-the-user-scheme
 	python setup.py install --user
-	
+
 	# now update your PATH such that it includes the directory to which poretools was just copied.
 	# look for a line in the installation log like: Installing poretools script to /home/arq5x/.local/bin
         # in this case, I would either add that path to the PATH environment variable for the current session:
         export PATH=$PATH:/home/arq5x/.local/bin
-        
+
         # or, better yet add it to your .bashrc file.
         # at this point you should be able to run the poretools executable from anywhere on your system.
         poretools --help
@@ -56,7 +56,7 @@ Download rpy2 from the pre-built binary page at: <http://www.lfd.uci.edu/~gohlke
 
 Then, to install poretools, simply download and run the Windows installer:
 
-        <https://github.com/arq5x/poretools/blob/master/dist/poretools-0.3.0.win-amd64.exe?raw=true>
+        <https://github.com/arq5x/poretools/blob/master/dist/poretools-0.3.1.win-amd64.exe?raw=true>
 
 ==================================
 Plotting with R on Windows
@@ -79,6 +79,13 @@ You need to set two environment variables to run poretools currently:
 	set R_HOME=c:\Program Files\R\R-3.1.1
 	set R_USER=c:\Users\MY USER\Documents
 
+You may also need to add the following directory to your PATH:
+
+.. code-block:: bash
+
+        C:\Program Files\R\R-3.1.1\bin\x64
+
+Instructions for updating your PATH on Windows can be found here: http://geekswithblogs.net/renso/archive/2009/10/21/how-to-set-the-windows-path-in-windows-7.aspx
 
 =================================
 Installing on OS X
@@ -95,10 +102,17 @@ To install HomeBrew, you run the following command (lifted from the HomeBrew sit
 Using HomeBrew, install HDF5 from the HomeBrew Science "tap";
 
 .. code-block:: bash
-	
-	brew tap homebrew/science 
+
+	brew tap homebrew/science
 	brew install hdf5
 
+You will also need Cython and numpy packages (if they are not already installed):
+
+.. code-block:: bash
+
+	pip install cython
+	pip install numpy
+	
 Now, you will need to install the R statistical analysis software (you may already have this...). The `CRAN <http://cran.r-project.org/bin/macosx/>`_ website houses automatic installation packages for different versions of OS X.  Here are links to such packages for `Snow Leopard and higher <http://cran.r-project.org/bin/macosx/R-3.1.1-snowleopard.pkg>`_ as well as `Mavericks <http://cran.r-project.org/bin/macosx/R-3.1.1-mavericks.pkg>`_.
 
 At this point, you can install poretools.
@@ -129,7 +143,7 @@ Package dependencies
 
 .. code-block:: bash
 
-	sudo apt-get install apt-get git python-setuptools python-dev cython libhdf5-serial-dev
+	sudo apt-get install git python-setuptools python-dev cython libhdf5-serial-dev
 
 Then install R 3.0, this requires a bit of hacking. You need to replace 'precise' with the appropriate version if you are on a different Ubuntu version, see <http://cran.r-project.org/bin/linux/ubuntu/README> for more details.
 
@@ -147,7 +161,7 @@ Or, for Ubuntu 14.04:
 
 .. code-block:: bash
 
-	deb http://www.stats.bris.ac.uk/R/bin/linux/ubuntu trusty/ 
+	deb http://www.stats.bris.ac.uk/R/bin/linux/ubuntu trusty/
 
 Then, run the following commands to install R 3.0:
 
@@ -198,7 +212,7 @@ Build the docker container yourself (preferred):
 	docker build -t poretools .
 	docker run poretools --help
 
-Or use the pre-built `image from Docker Hub <https://registry.hub.docker.com/u/stephenturner/poretools/>`_: 
+Or use the pre-built `image from Docker Hub <https://registry.hub.docker.com/u/stephenturner/poretools/>`_:
 
 .. code-block:: bash
 

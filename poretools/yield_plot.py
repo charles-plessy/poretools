@@ -7,6 +7,7 @@ from rpy2.robjects.packages import importr
 #logging
 import logging
 logger = logging.getLogger('poretools')
+logger.setLevel(logging.INFO)
 
 def plot_collectors_curve(args, start_times, read_lengths):
 	"""
@@ -33,11 +34,13 @@ def plot_collectors_curve(args, start_times, read_lengths):
 		y_label = "Total base pairs"
 		cumulative = r.cumsum(r_read_lengths)
 
+	step = args.skip
 	# make a data frame of the lists
-	d = {'start': r_start_times, 
-		'lengths': r_read_lengths,
-		'cumul': cumulative}
+	d = {'start': robjects.FloatVector([r_start_times[n] for n in xrange(0, len(r_start_times), step)]), 
+		'lengths': robjects.IntVector([r_read_lengths[n] for n in xrange(0, len(r_read_lengths), step)]),
+		'cumul': robjects.IntVector([cumulative[n] for n in xrange(0, len(cumulative), step)])}
 	df = robjects.DataFrame(d)
+
 
 	if args.savedf:
 		robjects.r("write.table")(df, file=args.savedf, sep="\t")
@@ -91,6 +94,7 @@ def run(parser, args):
 	
 	start_times = []
 	read_lengths = []
+	files_processed = 0
 	for fast5 in Fast5File.Fast5FileSet(args.files):
 		if fast5.is_open:
 			
@@ -107,8 +111,13 @@ def run(parser, args):
 				read_lengths.append(len(fq.seq))
 			else:
 				read_lengths.append(0)
-
 			fast5.close()
+
+		files_processed += 1
+		if files_processed % 100 == 0:
+			logger.info("%d files processed." % files_processed)
+	
+
 
 	# sort the data by start time
 	start_times, read_lengths = (list(t) for t in zip(*sorted(zip(start_times, read_lengths))))
